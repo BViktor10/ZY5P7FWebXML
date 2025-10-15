@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mozi>
+	<film id="txn_nxm_2jb" mufaj="horror">
+		<rendezo id="nzk_4xm_2jb" nev="alex" />
+		<szinesz id="u5g_4xm_2jb" nev="Madison_Ivy" />
+		<szinesz id="a" nev="ismeretlen">
+			<gyerekszinesz />
+			<musicalszinesz />
+			<szinkronszinesz />
+		</szinesz>
+		<iro id="trv_4xm_2jb" nev="Jane Smith" />
+	</film>
+	<film id="asd" mufaj="drama">
+		<producer nev="Jane Doe" />
+		<dramaturg nev="John Smith" />
+		<operator nev="Mark White" />
+	</film>
+</mozi>
