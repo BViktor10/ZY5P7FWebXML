@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Vendeglatas>
+
+        <Etterem Ekod="E001">
+            <Nev>Csillag Étterem</Nev>
+            <Cim>
+                <Varos>Budapest</Varos>
+                <Utca>Fő utca</Utca>
+                <Hazszam>12</Hazszam>
+            </Cim>
+            <Csillag>4</Csillag>
+        </Etterem>
+
+        <Etterem Ekod="E002">
+            <Nev>Napfény Bisztró</Nev>
+            <Cim>
+                <Varos>Szeged</Varos>
+                <Utca>Petőfi utca</Utca>
+                <Hazszam>8</Hazszam>
+            </Cim>
+            <Csillag>3</Csillag>
+        </Etterem>
+
+        <Foszakacs Fkod="F001" Ekod="E001">
+            <Nev>Kiss József</Nev>
+            <Eletkor>45</Eletkor>
+            <Vegzettseg>Mester szakács</Vegzettseg>
+        </Foszakacs>
+        <Foszakacs Fkod="F002" Ekod="E002">
+            <Nev>Varga László</Nev>
+            <Eletkor>50</Eletkor>
+            <Vegzettseg>Mesterszakács</Vegzettseg>
+        </Foszakacs>
+
+        <Szakacs Szkod="SZ001" Ekod="E001">
+            <Nev>Nagy Péter</Nev>
+            <Reszleg>Hidegkonyha</Reszleg>
+            <Vegzettseg>Szakács OKJ</Vegzettseg>
+        </Szakacs>
+        <Szakacs Szkod="SZ002" Ekod="E001">
+            <Nev>Horváth Anna</Nev>
+            <Reszleg>Melegkonyha</Reszleg>
+            <Vegzettseg>Szakács Technikus</Vegzettseg>
+        </Szakacs>
+        <Szakacs Szkod="SZ003" Ekod="E002">
+            <Nev>Kovács Tamás</Nev>
+            <Reszleg>Pizza részleg</Reszleg>
+            <Vegzettseg>Pizzaszakács</Vegzettseg>
+        </Szakacs>
+
+        <Gyakornok Gykod="GY001" Ekod="E001">
+            <Nev>Tóth Lili</Nev>
+            <Gyakorlat>
+                <Kezdete>2024-09-01</Kezdete>
+                <Idotartama>3 hónap</Idotartama>
+            </Gyakorlat>
+            <Muszak>Délelőtt</Muszak>
+        </Gyakornok>
+        <Gyakornok Gykod="GY002" Ekod="E002">
+            <Nev>Farkas Bence</Nev>
+            <Gyakorlat>
+                <Kezdete>2024-10-01</Kezdete>
+                <Idotartama>2 hónap</Idotartama>
+            </Gyakorlat>
+            <Muszak>Délután</Muszak>
+        </Gyakornok>
+
+        <Vendeg Vkod="V001">
+            <Nev>Szabó Béla</Nev>
+            <Eletkor>32</Eletkor>
+            <Cim>
+                <Varos>Budapest</Varos>
+                <Utca>Kert utca</Utca>
+                <Hazszam>4</Hazszam>
+            </Cim>
+        </Vendeg>
+        <Vendeg Vkod="V002">
+            <Nev>Kiss Edit</Nev>
+            <Eletkor>27</Eletkor>
+            <Cim>
+                <Varos>Szeged</Varos>
+                <Utca>Dóm tér</Utca>
+                <Hazszam>2</Hazszam>
+            </Cim>
+        </Vendeg>
+
+        <Rendeles Ekod="E001" Vkod="V001">
+            <Tetelek>
+                <Tetel>
+                    <Etel>Gulyásleves</Etel>
+                    <Osszeg>1800</Osszeg>
+                </Tetel>
+            </Tetelek>
+        </Rendeles>
+
+        <Rendeles Ekod="E002" Vkod="V002">
+            <Tetelek>
+                <Tetel>
+                    <Etel>Marhapörkölt</Etel>
+                    <Osszeg>2500</Osszeg>
+                </Tetel>
+                <Tetel>
+                    <Etel>Palacsinta</Etel>
+                    <Osszeg>900</Osszeg>
+                </Tetel>
+            </Tetelek>
+        </Rendeles>
+
+</Vendeglatas>
