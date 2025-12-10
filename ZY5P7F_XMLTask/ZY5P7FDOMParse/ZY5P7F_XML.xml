@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PsychiatrySystem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="ZY5P7F_XMLSchema.xsd">
+
+    <Medications>
+        <Medication id="MED001">
+            <BrandName>Xanax</BrandName>
+            <ActiveIngredient>Alprazolam</ActiveIngredient>
+            <DosageForm>Tablet</DosageForm>
+        </Medication>
+
+        <Medication id="MED002">
+            <BrandName>Prozac</BrandName>
+            <ActiveIngredient>Fluoxetine</ActiveIngredient>
+            <DosageForm>Capsule</DosageForm>
+        </Medication>
+        
+        <Medication id="MED003">
+            <BrandName>Rivotril</BrandName>
+            <ActiveIngredient>Clonazepam</ActiveIngredient>
+            <DosageForm>Liquid</DosageForm>
+        </Medication>
+    </Medications>
+
+    <Wards>
+        <Ward id="W01">
+            <Name>Acute Care Unit</Name>
+            <Floor>2</Floor>
+            <BedCount>30</BedCount>
+
+            <Psychiatrists>
+                <Psychiatrist license="LIC-12345">
+                    <Name>
+                        <FirstName>Gregory</FirstName>
+                        <LastName>House</LastName>
+                    </Name>
+                    <PhoneNumbers>
+                        <Phone>555-0199</Phone>
+                        <Phone>555-0100</Phone>
+                    </PhoneNumbers>
+                    <Email>house.g@hospital.com</Email>
+
+                    <Patients>
+                        <Patient ssn="111-22-3333">
+                            <Name>John Doe</Name>
+                            <Address>
+                                <City>New York</City>
+                                <Street>Fifth Avenue</Street>
+                                <HouseNum>10</HouseNum>
+                            </Address>
+                            <DateOfBirth>1985-04-12</DateOfBirth>
+
+                            <MedicalRecord id="REC001">
+                                <AdmissionDate>2023-10-15</AdmissionDate>
+                                <MainDiagnosis>Major Depression</MainDiagnosis>
+                                <Severity>Severe</Severity>
+                            </MedicalRecord>
+
+                            <Prescription ref="MED002">
+                                <DailyDosage>1x20mg Morning</DailyDosage>
+                            </Prescription>
+                        </Patient>
+
+                        <Patient ssn="444-55-6666">
+                            <Name>Jane Smith</Name>
+                            <Address>
+                                <City>Brooklyn</City>
+                                <Street>Main St</Street>
+                                <HouseNum>5</HouseNum>
+                            </Address>
+                            <DateOfBirth>1992-11-23</DateOfBirth>
+
+                            <MedicalRecord id="REC002">
+                                <AdmissionDate>2023-11-01</AdmissionDate>
+                                <MainDiagnosis>Panic Disorder</MainDiagnosis>
+                                <Severity>Moderate</Severity>
+                            </MedicalRecord>
+
+                            <Prescription ref="MED001">
+                                <DailyDosage>3x0.5mg Daily</DailyDosage>
+                            </Prescription>
+                             <Prescription ref="MED003">
+                                <DailyDosage>10 drops Evening</DailyDosage>
+                            </Prescription>
+                        </Patient>
+                    </Patients>
+                </Psychiatrist>
+
+                <Psychiatrist license="LIC-67890">
+                    <Name>
+                        <FirstName>Lisa</FirstName>
+                        <LastName>Cuddy</LastName>
+                    </Name>
+                    <PhoneNumbers>
+                        <Phone>555-9999</Phone>
+                    </PhoneNumbers>
+                    <Email>cuddy.l@hospital.com</Email>
+                    <Patients></Patients>
+                </Psychiatrist>
+            </Psychiatrists>
+        </Ward>
+
+        <Ward id="W02">
+            <Name>Rehabilitation Center</Name>
+            <Floor>1</Floor>
+            <BedCount>50</BedCount>
+            <Psychiatrists>
+                 </Psychiatrists>
+        </Ward>
+    </Wards>
+
+</PsychiatrySystem>
