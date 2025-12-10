@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:simpleType name="DateType">
+        <xs:restriction base="xs:date"/>
+    </xs:simpleType>
+    <xs:simpleType name="SSNType">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="\d{3}-\d{2}-\d{4}"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="AddressType">
+        <xs:sequence>
+            <xs:element name="City" type="xs:string"/>
+            <xs:element name="Street" type="xs:string"/>
+            <xs:element name="HouseNum" type="xs:integer"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="PersonNameType">
+        <xs:sequence>
+            <xs:element name="FirstName" type="xs:string"/>
+            <xs:element name="LastName" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:element name="PsychiatrySystem">
+        <xs:complexType>
+            <xs:sequence>
+                
+                <xs:element name="Wards">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Ward" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="Name" type="xs:string"/>
+                                        <xs:element name="Floor" type="xs:integer"/>
+                                        <xs:element name="BedCount" type="xs:integer"/>
+                                    </xs:sequence>
+                                    <xs:attribute name="id" type="xs:string" use="required"/>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+
+                <xs:element name="Psychiatrists">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Psychiatrist" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="Name" type="PersonNameType"/>
+                                        <xs:element name="PhoneNumbers">
+                                            <xs:complexType>
+                                                <xs:sequence>
+                                                    <xs:element name="Phone" type="xs:string" maxOccurs="unbounded"/>
+                                                </xs:sequence>
+                                            </xs:complexType>
+                                        </xs:element>
+                                        <xs:element name="Email" type="xs:string"/>
+                                    </xs:sequence>
+                                    <xs:attribute name="license" type="xs:string" use="required"/>
+                                    <xs:attribute name="wardRef" type="xs:string" use="required"/>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+
+                <xs:element name="Patients">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Patient" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="Name" type="xs:string"/>
+                                        <xs:element name="Address" type="AddressType"/>
+                                        <xs:element name="DateOfBirth" type="DateType"/>
+                                    </xs:sequence>
+                                    <xs:attribute name="ssn" type="SSNType" use="required"/>
+                                    <xs:attribute name="doctorRef" type="xs:string" use="required"/>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+
+                <xs:element name="Medications">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Medication" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="BrandName" type="xs:string"/>
+                                        <xs:element name="ActiveIngredient" type="xs:string"/>
+                                        <xs:element name="DosageForm" type="xs:string"/>
+                                    </xs:sequence>
+                                    <xs:attribute name="id" type="xs:string" use="required"/>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+
+                <xs:element name="MedicalRecords">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="MedicalRecord" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="AdmissionDate" type="DateType"/>
+                                        <xs:element name="MainDiagnosis" type="xs:string"/>
+                                        <xs:element name="Severity" type="xs:string"/>
+                                    </xs:sequence>
+                                    <xs:attribute name="id" type="xs:string" use="required"/>
+                                    <xs:attribute name="patientRef" type="SSNType" use="required"/>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+
+                <xs:element name="Prescriptions">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Prescription" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="DailyDosage" type="xs:string"/>
+                                    </xs:sequence>
+                                    <xs:attribute name="id" type="xs:string" use="required"/>
+                                    <xs:attribute name="ssnRef" type="SSNType" use="required"/>
+                                    <xs:attribute name="medRef" type="xs:string" use="required"/>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+
+            </xs:sequence>
+        </xs:complexType>
+
+        <xs:key name="WardKey">
+            <xs:selector xpath="Wards/Ward"/>
+            <xs:field xpath="@id"/>
+        </xs:key>
+        <xs:key name="DoctorKey">
+            <xs:selector xpath="Psychiatrists/Psychiatrist"/>
+            <xs:field xpath="@license"/>
+        </xs:key>
+        <xs:key name="PatientKey">
+            <xs:selector xpath="Patients/Patient"/>
+            <xs:field xpath="@ssn"/>
+        </xs:key>
+        <xs:key name="MedicationKey">
+            <xs:selector xpath="Medications/Medication"/>
+            <xs:field xpath="@id"/>
+        </xs:key>
+
+        <xs:keyref name="DoctorToWard" refer="WardKey">
+            <xs:selector xpath="Psychiatrists/Psychiatrist"/>
+            <xs:field xpath="@wardRef"/>
+        </xs:keyref>
+        <xs:keyref name="PatientToDoctor" refer="DoctorKey">
+            <xs:selector xpath="Patients/Patient"/>
+            <xs:field xpath="@doctorRef"/>
+        </xs:keyref>
+        <xs:keyref name="PrescriptionToPatient" refer="PatientKey">
+            <xs:selector xpath="Prescriptions/Prescription"/>
+            <xs:field xpath="@ssnRef"/>
+        </xs:keyref>
+        <xs:keyref name="PrescriptionToMedication" refer="MedicationKey">
+            <xs:selector xpath="Prescriptions/Prescription"/>
+            <xs:field xpath="@medRef"/>
+        </xs:keyref>
+        <xs:keyref name="RecordToPatient" refer="PatientKey">
+            <xs:selector xpath="MedicalRecords/MedicalRecord"/>
+            <xs:field xpath="@patientRef"/>
+        </xs:keyref>
+
+        <xs:unique name="UniqueRecordPerPatient">
+            <xs:selector xpath="MedicalRecords/MedicalRecord"/>
+            <xs:field xpath="@patientRef"/>
+        </xs:unique>
+
+    </xs:element>
+</xs:schema>

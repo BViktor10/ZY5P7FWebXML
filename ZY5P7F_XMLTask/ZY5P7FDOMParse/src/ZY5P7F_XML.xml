@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PsychiatrySystem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="ZY5P7F_XMLSchema.xsd">
+
+    <Wards>
+        <Ward id="W01">
+            <Name>Acute Care Unit</Name>
+            <Floor>2</Floor>
+            <BedCount>30</BedCount>
+        </Ward>
+        <Ward id="W02">
+            <Name>Rehabilitation Center</Name>
+            <Floor>1</Floor>
+            <BedCount>50</BedCount>
+        </Ward>
+        <Ward id="W03">
+            <Name>Geriatric Psychiatry</Name>
+            <Floor>3</Floor>
+            <BedCount>20</BedCount>
+        </Ward>
+    </Wards>
+
+    <Psychiatrists>
+        <Psychiatrist license="LIC-12345" wardRef="W01">
+            <Name>
+                <FirstName>Gregory</FirstName>
+                <LastName>House</LastName>
+            </Name>
+            <PhoneNumbers>
+                <Phone>555-0199</Phone>
+                <Phone>555-0100</Phone>
+            </PhoneNumbers>
+            <Email>house.g@hospital.com</Email>
+        </Psychiatrist>
+
+        <Psychiatrist license="LIC-67890" wardRef="W01">
+            <Name>
+                <FirstName>Lisa</FirstName>
+                <LastName>Cuddy</LastName>
+            </Name>
+            <PhoneNumbers>
+                <Phone>555-9999</Phone>
+            </PhoneNumbers>
+            <Email>cuddy.l@hospital.com</Email>
+        </Psychiatrist>
+        
+        <Psychiatrist license="LIC-11223" wardRef="W02">
+            <Name>
+                <FirstName>James</FirstName>
+                <LastName>Wilson</LastName>
+            </Name>
+            <PhoneNumbers>
+                <Phone>555-4321</Phone>
+            </PhoneNumbers>
+            <Email>wilson.j@hospital.com</Email>
+        </Psychiatrist>
+    </Psychiatrists>
+
+    <Patients>
+        <Patient ssn="111-22-3333" doctorRef="LIC-12345">
+            <Name>John Doe</Name>
+            <Address>
+                <City>New York</City>
+                <Street>Fifth Avenue</Street>
+                <HouseNum>10</HouseNum>
+            </Address>
+            <DateOfBirth>1985-04-12</DateOfBirth>
+        </Patient>
+
+        <Patient ssn="444-55-6666" doctorRef="LIC-12345">
+            <Name>Jane Smith</Name>
+            <Address>
+                <City>Brooklyn</City>
+                <Street>Main St</Street>
+                <HouseNum>5</HouseNum>
+            </Address>
+            <DateOfBirth>1992-11-23</DateOfBirth>
+        </Patient>
+        
+        <Patient ssn="777-88-9999" doctorRef="LIC-67890">
+            <Name>Robert Chase</Name>
+            <Address>
+                <City>Queens</City>
+                <Street>Broadway</Street>
+                <HouseNum>42</HouseNum>
+            </Address>
+            <DateOfBirth>1980-01-15</DateOfBirth>
+        </Patient>
+    </Patients>
+
+    <Medications>
+        <Medication id="MED001">
+            <BrandName>Xanax</BrandName>
+            <ActiveIngredient>Alprazolam</ActiveIngredient>
+            <DosageForm>Tablet</DosageForm>
+        </Medication>
+        <Medication id="MED002">
+            <BrandName>Prozac</BrandName>
+            <ActiveIngredient>Fluoxetine</ActiveIngredient>
+            <DosageForm>Capsule</DosageForm>
+        </Medication>
+        <Medication id="MED003">
+            <BrandName>Rivotril</BrandName>
+            <ActiveIngredient>Clonazepam</ActiveIngredient>
+            <DosageForm>Liquid</DosageForm>
+        </Medication>
+    </Medications>
+
+    <MedicalRecords>
+        <MedicalRecord id="REC001" patientRef="111-22-3333">
+            <AdmissionDate>2023-10-15</AdmissionDate>
+            <MainDiagnosis>Major Depression</MainDiagnosis>
+            <Severity>Severe</Severity>
+        </MedicalRecord>
+
+        <MedicalRecord id="REC002" patientRef="444-55-6666">
+            <AdmissionDate>2023-11-01</AdmissionDate>
+            <MainDiagnosis>Panic Disorder</MainDiagnosis>
+            <Severity>Moderate</Severity>
+        </MedicalRecord>
+    </MedicalRecords>
+
+    <Prescriptions>
+        <Prescription id="PRE001" ssnRef="111-22-3333" medRef="MED002">
+            <DailyDosage>1x20mg Morning</DailyDosage>
+        </Prescription>
+
+        <Prescription id="PRE002" ssnRef="444-55-6666" medRef="MED001">
+            <DailyDosage>3x0.5mg Daily</DailyDosage>
+        </Prescription>
+
+        <Prescription id="PRE003" ssnRef="444-55-6666" medRef="MED003">
+            <DailyDosage>10 drops Evening</DailyDosage>
+        </Prescription>
+    </Prescriptions>
+
+</PsychiatrySystem>
