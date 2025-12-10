@@ -1,0 +1,105 @@
+{
+  "ZY5P7F_orarend": {
+    "ora": [
+      {
+        "targy": "Webes adatkezelő környezetek",
+        "idopont": {
+          "nap": "Szerda",
+          "tol": 8,
+          "ig": 10
+        },
+        "helyszin": "",
+        "oktato": "",
+        "szak": ""
+      },
+      {
+        "targy": "Webes adatkezelő környezetek",
+        "idopont": {
+          "nap": "Szerda",
+          "tol": 10,
+          "ig": 12
+        },
+        "helyszin": "",
+        "oktato": "",
+        "szak": ""
+      },
+      {
+        "targy": "Web technológiák 1.",
+        "idopont": {
+          "nap": "Hétfő",
+          "tol": 10,
+          "ig": 12
+        },
+        "helyszin": "",
+        "oktato": "",
+        "szak": ""
+      },
+      {
+        "targy": "Mesterséges intelligencia alapok",
+        "idopont": {
+          "nap": "Kedd",
+          "tol": 10,
+          "ig": 12
+        },
+        "helyszin": "",
+        "oktato": "",
+        "szak": ""
+      },
+      {
+        "targy": "Angol műszaki szaknyelv 1.",
+        "idopont": {
+          "nap": "Hétfő",
+          "tol": 12,
+          "ig": 14
+        },
+        "helyszin": "",
+        "oktato": "",
+        "szak": ""
+      },
+      {
+        "targy": "Mesterséges intelligencia alapok",
+        "idopont": {
+          "nap": "Kedd",
+          "tol": 12,
+          "ig": 14
+        },
+        "helyszin": "",
+        "oktato": "",
+        "szak": ""
+      },
+      {
+        "targy": "Web technológiák 1.",
+        "idopont": {
+          "nap": "Szerda",
+          "tol": 12,
+          "ig": 14
+        },
+        "helyszin": "",
+        "oktato": "",
+        "szak": ""
+      },
+      {
+        "targy": "Vállalati információs rendszerek fejlesztése",
+        "idopont": {
+          "nap": "Szerda",
+          "tol": 14,
+          "ig": 16
+        },
+        "helyszin": "",
+        "oktato": "",
+        "szak": ""
+      },
+      {
+        "targy": "Vállalati információs rendszerek fejlesztése",
+        "idopont": {
+          "nap": "Szerda",
+          "tol": 18,
+          "ig": 20
+        },
+        "helyszin": "",
+        "oktato": "",
+        "szak": ""
+      }
+    ]
+  }
+}
