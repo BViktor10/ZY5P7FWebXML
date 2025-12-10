@@ -120,38 +120,23 @@ Az XML dokumentum a `PsychiatrySystem` gyökérelem alatt tárolja az adatokat. 
 
 \textbf{Fájlnév:} \texttt{ZY5P7F\_XML.xml}
 
-\begin{lstlisting}[language=XML, caption=Részlet az XML fájlból]
-<PsychiatrySystem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="ZY5P7F_XMLSchema.xsd">
-    <Medications>
-        <Medication id="MED001">
-            <BrandName>Xanax SR</BrandName>
-            <ActiveIngredient>Alprazolam</ActiveIngredient>
-            <DosageForm>Tablet</DosageForm>
-        </Medication>
-        </Medications>
-
+\begin{lstlisting}[language=XML, caption=Részlet a lapos szerkezetű XML fájlból]
+<PsychiatrySystem>
     <Wards>
         <Ward id="W01">
             <Name>Acute Care Unit</Name>
-            <Floor>2</Floor>
-            <BedCount>30</BedCount>
-            <Psychiatrists>
-                <Psychiatrist license="LIC-12345">
-                    <Name>
-                        <FirstName>Gregory</FirstName>
-                        <LastName>House</LastName>
-                    </Name>
-                    <Patients>
-                        <Patient ssn="111-22-3333">
-                           <Prescription ref="MED002">
-                                <DailyDosage>1x20mg Morning</DailyDosage>
-                           </Prescription>
-                        </Patient>
-                    </Patients>
-                </Psychiatrist>
-            </Psychiatrists>
-        </Ward>
+            </Ward>
     </Wards>
+    <Psychiatrists>
+        <Psychiatrist license="LIC-12345" wardRef="W01">
+            <Name>...</Name>
+        </Psychiatrist>
+    </Psychiatrists>
+    <Patients>
+        <Patient ssn="111-22-3333" doctorRef="LIC-12345">
+            <Name>John Doe</Name>
+        </Patient>
+    </Patients>
 </PsychiatrySystem>
 \end{lstlisting}
 
@@ -160,26 +145,17 @@ Az XSD sémában saját egyszerű és összetett típusokat definiáltam (pl. \t
 
 \textbf{Fájlnév:} \texttt{ZY5P7F\_XMLSchema.xsd}
 
-\begin{lstlisting}[language=XML, caption=Részlet az XSD sémából]
-<xs:complexType name="PrescriptionType">
-    <xs:sequence>
-        <xs:element name="DailyDosage" type="xs:string"/>
-    </xs:sequence>
-    <xs:attribute name="ref" type="xs:IDREF" use="required"/>
-</xs:complexType>
-
-<xs:key name="MedicationKey">
-    <xs:selector xpath="Medications/Medication"/>
-    <xs:field xpath="@id"/>
-</xs:key>
-
-<xs:keyref name="PrescriptionToMedicationRef" refer="MedicationKey">
-    <xs:selector xpath=".//Prescription"/>
-    <xs:field xpath="@ref"/>
+\begin{lstlisting}[language=XML, caption=Részlet az XSD sémából (Kulcsok és Unique)]
+<xs:keyref name="DoctorToWard" refer="WardKey">
+    <xs:selector xpath="Psychiatrists/Psychiatrist"/>
+    <xs:field xpath="@wardRef"/>
 </xs:keyref>
-\end{lstlisting}
 
-\newpage
+<xs:unique name="UniqueRecordPerPatient">
+    <xs:selector xpath="MedicalRecords/MedicalRecord"/>
+    <xs:field xpath="@patientRef"/>
+</xs:unique>
+\end{lstlisting}
 % --- 2. FELADAT ---
 
 \section{DOM program készítése}
@@ -217,34 +193,49 @@ private static void printNode(Node node, String indent) {
 \end{lstlisting}
 
 \subsection{Adat-lekérdezés}
-A \texttt{ZY5P7FDomQuery} osztály célzottan kérdez le adatokat az XML-ből. A program kilistázza az összes pácienst (\texttt{Patient}) és a hozzájuk tartozó fő diagnózist (\texttt{MainDiagnosis}). A megvalósítás során \texttt{NodeList}-et és \texttt{getElementsByTagName} metódust használtam. [cite: 39, 43]
+A \texttt{ZY5P7FDomQuery} osztályban \textbf{4 különböző lekérdezést} valósítottam meg a feladatkiírásnak megfelelően. A lekérdezések során a lapos szerkezet miatt az elemeket az azonosítóik (ID) és hivatkozásaik (Ref) alapján kellett összekapcsolni.
 
-\begin{lstlisting}[language=Java, caption=Részlet az Adat-lekérdezés kódból]
-NodeList patientList = doc.getElementsByTagName("Patient");
-for (int i = 0; i < patientList.getLength(); i++) {
-    Node node = patientList.item(i);
-    if (node.getNodeType() == Node.ELEMENT_NODE) {
-        Element patient = (Element) node;
-        String name = patient.getElementsByTagName("Name").item(0).getTextContent();
-        String ssn = patient.getAttribute("ssn");
-        // ... diagnózis lekérése ...
-        System.out.println("Páciens: " + name + " (SSN: " + ssn + ")");
+\textbf{A megvalósított lekérdezések:}
+\begin{enumerate}
+    \item Osztályok neveinek listázása.
+    \item Adott osztályon ("Acute Care Unit") dolgozó orvosok lekérdezése (FK kapcsolat).
+    \item Adott beteg ("John Doe") diagnózisának lekérdezése (1:1 kapcsolat).
+    \item Gyógyszerek számának aggregálása.
+\end{enumerate}
+
+\begin{lstlisting}[language=Java, caption=Részlet: Orvosok keresése osztály alapján]
+// Megkeressük azokat az orvosokat, akiknek a wardRef attribútuma egyezik
+NodeList docList = doc.getElementsByTagName("Psychiatrist");
+for (int i = 0; i < docList.getLength(); i++) {
+    Element doctor = (Element) docList.item(i);
+    if (doctor.getAttribute("wardRef").equals(wardId)) {
+        // ... Orvos nevének kiírása ...
     }
 }
 \end{lstlisting}
 
 \subsection{Adatmódosítás}
-A \texttt{ZY5P7FDomModify} osztály módosítja az XML tartalmát. A program megkeresi a \texttt{MED001} azonosítójú gyógyszert, és a márkanevét (\texttt{BrandName}) átírja "Xanax SR"-re. A módosítás után az új állapotot konzolra írja, és elmenti egy \texttt{ZY5P7F\_XML\_Modified.xml} nevű fájlba. [cite: 45, 48]
+A \texttt{ZY5P7FDomModify} osztályban \textbf{4 különböző módosítást} végeztem el az XML adatain. A program a módosítások után a frissített DOM fát elmenti egy \texttt{ZY5P7F\_XML\_Modified.xml} nevű fájlba.
 
-\begin{lstlisting}[language=Java, caption=Részlet az Adatmódosítás kódból]
-if ("MED001".equals(medElement.getAttribute("id"))) {
-    Node brandNameNode = medElement.getElementsByTagName("BrandName").item(0);
-    System.out.println("Régi név: " + brandNameNode.getTextContent());
-    
-    brandNameNode.setTextContent("Xanax SR"); // Módosítás
-    System.out.println("Új név beállítva: Xanax SR");
+\textbf{A végrehajtott módosítások:}
+\begin{enumerate}
+    \item Gyógyszer átnevezése ("Xanax" $\rightarrow$ "Xanax SR").
+    \item Ágyszám növelése egy osztályon.
+    \item Beteg lakcímének (Város) javítása.
+    \item Orvos email címének frissítése.
+\end{enumerate}
+
+\begin{lstlisting}[language=Java, caption=Részlet: Több módosítás végrehajtása]
+// 1. Gyógyszer átnevezése
+if ("MED001".equals(med.getAttribute("id"))) {
+    brand.setTextContent("Xanax SR");
 }
-// ... Mentés Transformerrel ...
+// ...
+// 2. Ágyszám növelése
+if ("W01".equals(ward.getAttribute("id"))) {
+    beds.setTextContent("35");
+}
+// Mentés fájlba...
 \end{lstlisting}
 
 \end{document}
